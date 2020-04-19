@@ -56,15 +56,49 @@ void printBoard(int board[SIZE][SIZE])
   }
 }
 
+void printDuska(char duska[SIZE][SIZE])
+{
+  for(int i = 0; i < SIZE; i++)
+    {
+      for(int j = 0; j < SIZE; j++)
+        printf("%c ", duska[i][j]);
+      printf("\n");
+    }
+}
+
 int main()
 {
   srand(time(0));
 
   int board[SIZE][SIZE];
+  char duska[SIZE][SIZE];
+  for(int i = 0; i < SIZE; i++)
+    for(int j = 0; j < SIZE; j++)
+      duska[i][j] = 'G';
   zero(board);
 
   putBombs(board, 3);
   evaluateCells(board);
-  printBoard(board);
+
+  int x;
+  int y;
+
+  while(1)
+  {
+    printDuska(duska);
+
+    printf("Enter an X [0;%d]: ", SIZE-1);
+    scanf("%d", &x);
+    printf("Enter a Y [0;%d]: ", SIZE-1);
+    scanf("%d", &y);
+
+    if(board[y][x] == 8)
+    {
+      printf("Game Over!\n");
+      break;
+    }
+
+    duska[y][x] = board[x][y]+48;
+  }
 
 }
